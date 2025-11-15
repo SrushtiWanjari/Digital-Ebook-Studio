@@ -27,7 +27,7 @@ export const approveUser = async (req, res) => {
       <p>Your account has been <b>approved by the admin</b>.</p>
       <p>You can now log in and start using your dashboard.</p>
       <br/>
-      <a href="https://your-frontend-url.com/login"
+      <a href="https://digital-ebook-studio-ui-z7un.onrender.com/login"
          style="padding:10px 18px;background:#6a4dff;color:white;text-decoration:none;border-radius:6px;">
          Login Now
       </a>
@@ -86,29 +86,10 @@ export const rejectUser = async (req, res) => {
   res.json({ message: "User rejected & email sent" });
 };
 
-
-
-// export const rejectUser = async (req, res) => {
-//   const u = await User.findByIdAndUpdate(req.params.id, { status: 'rejected' }, { new: true });
-//   if (!u) return res.status(404).json({ message: 'Not found' });
-//   try {
-//     await sendMail(u.email, 'Account Rejected', `Hello ${u.name},\n\nYour registration has been rejected.`);
-//   } catch(err) {
-//     console.error('Email error', err);
-//   }
-//   res.json({ message: 'Rejected' });
-// };
-
 export const getPendingBooks = async (req, res) => {
   const books = await Book.find({ status: 'submitted' }).populate('author','name email');
   res.json(books);
 };
-
-// export const approveBook = async (req, res) => {
-//   const b = await Book.findByIdAndUpdate(req.params.id, { status: 'approved' }, { new: true });
-//   if (!b) return res.status(404).json({ message: 'Not found' });
-//   res.json({ message: 'Book approved' });
-// };
 
 
 export const approveBook = async (req, res) => {
@@ -202,8 +183,4 @@ export const rejectBook = async (req, res) => {
   res.json({ message: "Book rejected & email sent to author" });
 };
 
-// export const rejectBook = async (req, res) => {
-//   const b = await Book.findByIdAndUpdate(req.params.id, { status: 'draft' }, { new: true });
-//   if (!b) return res.status(404).json({ message: 'Not found' });
-//   res.json({ message: 'Book rejected' });
-// };
+
