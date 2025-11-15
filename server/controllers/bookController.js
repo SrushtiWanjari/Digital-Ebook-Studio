@@ -101,7 +101,7 @@ export const updateBook = async (req, res) => {
 
 // Get my books
 export const myBooks = async (req, res) => {
-  const books = await Book.find({ author: req.user._id }).sort({ createdAt: -1 });
+  const books = await Book.find({ author: req.user._id }).sort({ createdAt: -1 })
   res.json(books);
 };
 
@@ -113,7 +113,7 @@ export const publicBooks = async (req, res) => {
 
 // ADMIN — get submitted books pending approval
 export const adminGetPendingBooks = async (req, res) => {
-  const books = await Book.find({ status: "submitted" }).populate("author", "name email");
+  const books = await Book.find({ status: "submitted" }).populate("author", "name email").sort({ createdAt: -1 });
   res.json(books);
 };
 
@@ -139,5 +139,26 @@ export const adminRejectBook = async (req, res) => {
 
   res.json({ message: "Book rejected, moved back to draft" });
 };
+
+// Author Routes
+// router.delete("/:id", async (req, res) => {
+  
+// });
+
+
+export const deleteBook = async (req, res) => {
+try {
+    const deletedBook = await Book.findByIdAndDelete(req.params.id);
+    if (!deletedBook)
+      return res.status(404).json({ message: "Book not found" });
+    res.json({ message: "Book deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting book", error });
+  }
+}
+
+
+
+
 
 

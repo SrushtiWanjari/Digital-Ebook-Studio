@@ -22,26 +22,18 @@ import {
   publicBooks,
   adminGetPendingBooks,
   adminApproveBook,
-  adminRejectBook
+  adminRejectBook,
+  deleteBook
 } from "../controllers/bookController.js";
 
 const router = express.Router();
 
-// Author Routes
-router.delete("/:id", async (req, res) => {
-  try {
-    const deletedBook = await Book.findByIdAndDelete(req.params.id);
-    if (!deletedBook)
-      return res.status(404).json({ message: "Book not found" });
-    res.json({ message: "Book deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Error deleting book", error });
-  }
-});
+
 
 router.post("/", auth, createBook);
 router.put("/:id", auth, updateBook);
 router.get("/my", auth, myBooks);
+router.delete("/delete/:id", auth, myBooks);
 
 // Public & Admin
 router.get("/public", publicBooks);

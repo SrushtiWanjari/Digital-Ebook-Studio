@@ -690,6 +690,8 @@ export default function AuthorDashboard() {
   const fetchBooks = async () => {
     try {
       const { data } = await API.get("/books/my");
+      // console.log(data);
+      
       setBooks(data);
     } catch {
       toast.error("Error loading books");
@@ -739,7 +741,10 @@ export default function AuthorDashboard() {
 
   const handleSubmitBook = async (id) => {
     try {
-      await API.put(`/books/${id}`, { status: "submitted" });
+      const response = await API.put(`/books/${id}`, { status: "submitted" });
+
+      console.log("Books",response.data);
+      
       toast.success("📩 Sent for Admin Review");
       fetchBooks();
     } catch {
@@ -767,7 +772,7 @@ export default function AuthorDashboard() {
   };
 
   // ✅ SweetAlert Delete Handler
-  const handleDelete = async (bookId) => {
+  const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: "Are you sure?",
       text: "This will permanently delete your book!",
@@ -783,8 +788,8 @@ export default function AuthorDashboard() {
     if (!result.isConfirmed) return;
 
     try {
-      await API.delete(`/books/${bookId}`);
-      setBooks((prev) => prev.filter((b) => b._id !== bookId));
+      await API.delete(`/books/delete/${id}`);
+      setBooks((prev) => prev.filter((b) => b._id !== id));
 
       Swal.fire({
         title: "Deleted!",
@@ -792,7 +797,7 @@ export default function AuthorDashboard() {
         icon: "success",
         background: "#1e1e2f",
         color: "#fff",
-        timer: 1500,
+        timer: 1100,
         showConfirmButton: false,
       });
     } catch (error) {
