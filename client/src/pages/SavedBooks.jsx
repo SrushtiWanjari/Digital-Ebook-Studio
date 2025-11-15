@@ -54,12 +54,6 @@ export default function SavedBooks() {
           <Book size={22} /> Saved Books
         </h2>
 
-        <a
-          href="/author"
-          className="flex items-center gap-1 hover:text-yellow-300 transition"
-        >
-          <Home size={18} /> Back
-        </a>
       </div>
 
       {books.length === 0 ? (

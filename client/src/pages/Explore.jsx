@@ -66,14 +66,6 @@ export default function Explore() {
         <h2 className="text-xl font-bold flex items-center gap-2">
           <Book size={22} /> Explore Books
         </h2>
-
-        <a
-          href="/author"
-          className="flex items-center gap-1 hover:text-yellow-300 transition"
-        >
-          <Home size={18} />
-          Back
-        </a>
       </div>
 
       <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
