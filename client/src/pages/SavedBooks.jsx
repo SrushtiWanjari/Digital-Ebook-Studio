@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Book, Trash2, Home } from "lucide-react";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import { LogOut } from "lucide-react";
+
 
 export default function SavedBooks() {
   const [books, setBooks] = useState([]);
@@ -17,8 +20,35 @@ export default function SavedBooks() {
     toast.info("Book removed from saved list");
   };
 
+   const logout = () => {
+      localStorage.removeItem("token");
+      toast.info("Logged out");
+      nav("/login");
+    };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-600 to-pink-600 p-6 text-white">
+       <div className="flex justify-between bg-white/20 backdrop-blur-lg border border-white/30 rounded-2xl p-4 text-white mb-8 shadow-lg">
+        <div className="flex gap-6 items-center">
+          <Home size={22} />
+          <span className="font-bold text-lg">Author Dashboard</span>
+        </div>
+
+        <div className="flex gap-5 justify-center items-center">
+          <Link to="/explore" className="hover:text-yellow-300 font-semibold">
+            Explore
+          </Link>
+          <Link to="/saved" className="hover:text-yellow-300 font-semibold">
+            Saved Drafts
+          </Link>
+          <button
+            onClick={logout}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500 text-white hover:animate-pulse transition font-medium shadow"
+          >
+            <LogOut size={18} /> Logout
+          </button>
+        </div>
+      </div>
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-bold flex items-center gap-2">
           <Book size={22} /> Saved Books
