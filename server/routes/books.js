@@ -1,17 +1,4 @@
-// import express from "express";
-// import {
-//   createBook,
-//   updateBook,
-//   myBooks,
-//   publicBooks,
-// } from "../controllers/bookController.js";
-// import { auth } from "../middleware/auth.js";
-// const router = express.Router();
-// router.post("/", auth, createBook);
-// router.put("/:id", auth, updateBook);
-// router.get("/my", auth, myBooks);
-// router.get("/public", publicBooks);
-// export default router;
+
 
 import express from "express";
 import { auth } from "../middleware/auth.js";

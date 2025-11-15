@@ -21,10 +21,13 @@ export default function AdminDashboard() {
 
       setPendingUsers(users.data);
 
-      const books = await API.get("/books/admin/pending",{},
-         {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+      const books = await API.get(
+        "/books/admin/pending",
+        {},
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
       console.log("pending Books", books.data);
 
       setPendingBooks(books.data);
@@ -37,110 +40,65 @@ export default function AdminDashboard() {
     loadData();
   }, []);
 
-  // const approveBook = async (id) => {
-  //   try {
-  //     const approve = await API.put(
-  //       `books/admin/${id}/approve`,
-  //       {},
-  //       {
-  //         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-  //       }
-  //     );
-
-  //     console.log("approve", approve);
-
-  //     toast.success("✅ Book Approved & Published!");
-  //     loadData();
-  //   } catch {
-  //     toast.error("Error approving");
-  //   }
-  // };
-
-
   const approveBook = async (id) => {
-  const toastId = toast.loading("Approving book...");
+    const toastId = toast.loading("Approving book...");
 
-  try {
-    await API.put(
-      `books/admin/${id}/approve`,
-      {},
-      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-    );
+    try {
+      await API.put(
+        `books/admin/${id}/approve`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
 
-    toast.update(toastId, {
-      render: "📚 Book Approved & Published!",
-      type: "success",
-      isLoading: false,
-      autoClose: 2000,
-    });
+      toast.update(toastId, {
+        render: "📚 Book Approved & Published!",
+        type: "success",
+        isLoading: false,
+        autoClose: 2000,
+      });
 
-    loadData();
-  } catch {
-    toast.update(toastId, {
-      render: "❌ Error approving book",
-      type: "error",
-      isLoading: false,
-      autoClose: 2000,
-    });
-  }
-};
+      loadData();
+    } catch {
+      toast.update(toastId, {
+        render: "❌ Error approving book",
+        type: "error",
+        isLoading: false,
+        autoClose: 2000,
+      });
+    }
+  };
 
+  const rejectBook = async (id) => {
+    const toastId = toast.loading("Rejecting book...");
 
- const rejectBook = async (id) => {
-  const toastId = toast.loading("Rejecting book...");
+    try {
+      await API.put(
+        `books/admin/${id}/reject`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
 
-  try {
-    await API.put(
-      `books/admin/${id}/reject`,
-      {},
-      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-    );
+      toast.update(toastId, {
+        render: "❌ Book Rejected",
+        type: "error",
+        isLoading: false,
+        autoClose: 2000,
+      });
 
-    toast.update(toastId, {
-      render: "❌ Book Rejected",
-      type: "error",
-      isLoading: false,
-      autoClose: 2000,
-    });
-
-    loadData();
-  } catch {
-    toast.update(toastId, {
-      render: "⚠ Error rejecting book",
-      type: "error",
-      isLoading: false,
-      autoClose: 2000,
-    });
-  }
-};
-
-  // const rejectBook = async (id) => {
-  //   try {
-  //     await API.put(
-  //       `books/admin/${id}/reject`,
-  //       {},
-  //       {
-  //         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-  //       }
-  //     );
-  //     toast.error("❌ Book Rejected");
-  //     loadData();
-  //   } catch {
-  //     toast.error("Error rejecting");
-  //   }
-  // };
-
-  // const approveUser = async (id) => {
-  //   try {
-  //     await API.put(`/admin/${id}/approve`,{}, {
-  //         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-  //       });
-  //     toast.success("User Approved");
-  //     loadData();
-  //   } catch {
-  //     toast.error("Error approving user");
-  //   }
-  // };
+      loadData();
+    } catch {
+      toast.update(toastId, {
+        render: "⚠ Error rejecting book",
+        type: "error",
+        isLoading: false,
+        autoClose: 2000,
+      });
+    }
+  };
 
   const approveUser = async (id) => {
     const toastId = toast.loading("Approving..."); // show loader immediately
@@ -244,7 +202,6 @@ export default function AdminDashboard() {
         ))}
       </div>
 
-      {/* Pending Books */}
       <div className="bg-white/20 backdrop-blur-xl shadow-xl p-6 rounded-2xl border border-white/30">
         <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
           <BookOpen /> Pending Books
