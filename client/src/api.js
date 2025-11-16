@@ -2,7 +2,7 @@ import axios from "axios";
 const API = axios.create({
   baseURL:
     import.meta.env.VITE_API_URL ||
-    "https://digital-ebook-studio-api-a1xb.onrender.com",
+    "https://digital-ebook-studio-api-a1xb.onrender.com/api",
 });
 
 export const setAuthToken = (token) => {
