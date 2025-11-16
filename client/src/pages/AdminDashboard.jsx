@@ -93,7 +93,7 @@ export default function AdminDashboard() {
   };
 
   const approveUser = async (id) => {
-    // const toastId = toast.loading("Approving..."); // show loader immediately
+    const toastId = toast.loading("Approving..."); // show loader immediately
 
     try {
       await API.put(
@@ -103,23 +103,23 @@ export default function AdminDashboard() {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
-      toast.success("User Approved");
-      // toast.update(toastId, {
-      //   render: "User Approved",
-      //   type: "success",
-      //   isLoading: false,
-      //   autoClose: 1000,
-      // });
+     
+      toast.update(toastId, {
+        render: "User Approved",
+        type: "success",
+        isLoading: false,
+        autoClose: 1000,
+      });
 
       loadData();
-    } catch (error) {
-      toast.error("Error Approved User");
-      // toast.update(toastId, {
-      //   render: "Error approving user",
-      //   type: "error",
-      //   isLoading: false,
-      //   autoClose: 1000,
-      // });
+    } catch () {
+     
+      toast.update(toastId, {
+        render: "Error approving user",
+        type: "error",
+        isLoading: false,
+        autoClose: 1000,
+      });
     }
   };
   const rejectUser = async (id) => {
