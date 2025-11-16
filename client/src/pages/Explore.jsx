@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import API, { setAuthToken } from "../lib/api";
+import API, { setAuthToken } from "../api.js";
 import { BookmarkPlus, Book, Home } from "lucide-react";
 import { toast } from "react-toastify";
 import { LogOut } from "lucide-react";

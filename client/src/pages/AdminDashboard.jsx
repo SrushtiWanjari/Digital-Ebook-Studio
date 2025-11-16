@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import API from "../lib/api";
+import API from "../api.js";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { Check, X, Users, BookOpen } from "lucide-react";

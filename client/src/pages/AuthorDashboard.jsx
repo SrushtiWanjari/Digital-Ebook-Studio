@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import API, { setAuthToken } from "../lib/api";
+import API, { setAuthToken } from "../api.js";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
