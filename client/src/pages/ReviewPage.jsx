@@ -89,9 +89,7 @@ const ReviewPage = () => {
         animate={{ opacity: 1, y: 0 }}
       >
         <div>
-          <label className="block text-white/90 font-semibold mb-2">
-            Name
-          </label>
+          <label className="block text-white/90 font-semibold mb-2">Name</label>
           <input
             type="text"
             placeholder="Enter your name"

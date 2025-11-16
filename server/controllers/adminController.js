@@ -1,9 +1,11 @@
-import User from '../models/User.js';
-import Book from '../models/Book.js';
-import { sendEmail } from '../utils/sendEmail.js';
+import User from "../models/User.js";
+import Book from "../models/Book.js";
+import { sendEmail } from "../utils/sendEmail.js";
 
 export const getPendingUsers = async (req, res) => {
-  const users = await User.find({ status: 'pending' }).select('name email bio writingExperience createdAt');
+  const users = await User.find({ status: "pending" }).select(
+    "name email bio writingExperience createdAt"
+  );
   res.json(users);
 };
 
@@ -37,7 +39,6 @@ export const approveUser = async (req, res) => {
     );
 
     return res.json({ message: "User approved & email sent successfully" });
-
   } catch (error) {
     console.error("Approval email sending failed:", error);
     return res.json({ message: "User approved, but email failed to send" });
@@ -87,10 +88,12 @@ export const rejectUser = async (req, res) => {
 };
 
 export const getPendingBooks = async (req, res) => {
-  const books = await Book.find({ status: 'submitted' }).populate('author','name email');
+  const books = await Book.find({ status: "submitted" }).populate(
+    "author",
+    "name email"
+  );
   res.json(books);
 };
-
 
 export const approveBook = async (req, res) => {
   const b = await Book.findById(req.params.id).populate("author", "name email");
@@ -99,43 +102,8 @@ export const approveBook = async (req, res) => {
   b.status = "approved";
   await b.save();
 
-  try {
-    await sendEmail(
-      b.author.email,
-      "🎉 Your Book Has Been Approved!",
-      `
-      <div style="font-family: Arial; line-height: 1.6;">
-        <h2 style="color:#4CAF50;">Digital Ebook Studio</h2>
-
-        <p>Hi <b>${b.author.name}</b>,</p>
-        <p>Great news! Your book titled <b>"${b.title}"</b> has been successfully reviewed and <b style="color:#4CAF50;">approved for publishing</b>.</p>
-
-        <p>📚 Your book is now <b>live and visible to all users</b> in the ebooks library.</p>
-
-        <br/>
-        <p>🔍 <b>Next Step:</b> You can promote and share your book with others.</p>
-
-        <br/>
-        <p>We're proud to have you as an author on our platform. Keep creating amazing content!</p>
-
-        <p>🚀 <b>Continue writing your next masterpiece!</b></p>
-
-        <br/>
-        <p>Regards,</p>
-        <p><b>Digital Ebook Studio Team</b></p>
-
-        <hr/>
-        <small style="color:#666;">This is an automated email — please do not reply.</small>
-      </div>
-      `
-    );
-  } catch (err) {
-    console.error("Email Error →", err);
-  }
-
-  res.json({ message: "Book approved & approval email sent" });
+  res.json({ message: "Book approved" });
 };
-
 
 export const rejectBook = async (req, res) => {
   const b = await Book.findById(req.params.id).populate("author", "name email");
@@ -145,42 +113,5 @@ export const rejectBook = async (req, res) => {
   b.status = "draft";
   await b.save();
 
-  try {
-    await sendEmail(
-      b.author.email,
-      "❌ Book Submission Rejected",
-      `
-      <div style="font-family: Arial; line-height: 1.6;">
-        <h2 style="color:#B00020;">Digital Ebook Studio</h2>
-        <p>Hi <b>${b.author.name}</b>,</p>
-        <p>We appreciate your effort in submitting your book <b>"${b.title}"</b> for review.</p>
-
-        <p>However, after evaluation, your submission has been <b style="color:#B00020;">rejected</b> for now.</p>
-        <p>Your book is moved back to <b>Draft</b> status so that you can edit and improve it.</p>
-
-        <p>You may resubmit it anytime after making the required changes.</p>
-
-        <br/>
-        <p>🔁 <b>Next Step:</b> Go to your Author Dashboard → Edit Book → Resubmit</p>
-        
-        <br/>
-        <p>If you need help or want clarification about the rejection reason, feel free to contact us.</p>
-        <p>📩 <b>Support Email:</b> digitale.book@gmail.com</p>
-
-        <br/>
-        <p>Regards,</p>
-        <p><b>Digital Ebook Studio Team</b></p>
-
-        <hr/>
-        <small style="color:#666;">This is an automated email — please do not reply.</small>
-      </div>
-      `
-    );
-  } catch (err) {
-    console.error("Email Error →", err);
-  }
-
-  res.json({ message: "Book rejected & email sent to author" });
+  res.json({ message: "Book rejected & move back to draft" });
 };
-
-

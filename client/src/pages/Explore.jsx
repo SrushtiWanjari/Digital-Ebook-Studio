@@ -48,14 +48,14 @@ export default function Explore() {
         </div>
 
         <div className="flex gap-5 justify-center items-center">
-           <Link to="/author" className="hover:text-yellow-300 font-semibold">
+          <Link to="/author" className="hover:text-yellow-300 font-semibold">
             Create Book
           </Link>
           <Link to="/explore" className="hover:text-yellow-300 font-semibold">
-            Explore
+            Explore-Book
           </Link>
           <Link to="/saved" className="hover:text-yellow-300 font-semibold">
-            Saved Drafts
+            Saved-Books
           </Link>
           <button
             onClick={logout}

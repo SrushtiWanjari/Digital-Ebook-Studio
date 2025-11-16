@@ -12,9 +12,9 @@ app.use(cors());
 app.use(express.json({ limit: '5mb' }));
 
 
-app.use('/auth', authRoutes);
-app.use('/admin', adminRoutes);
-app.use('/books', bookRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/books', bookRoutes);
 
 
 

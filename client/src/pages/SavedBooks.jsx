@@ -38,10 +38,10 @@ export default function SavedBooks() {
             Create Book
           </Link>
           <Link to="/explore" className="hover:text-yellow-300 font-semibold">
-            Explore
+            Explore-Books
           </Link>
           <Link to="/saved" className="hover:text-yellow-300 font-semibold">
-            Saved Drafts
+            Saved-Books
           </Link>
           <button
             onClick={logout}

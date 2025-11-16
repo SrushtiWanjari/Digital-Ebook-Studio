@@ -11,7 +11,6 @@ import {
   Globe2,
   Star,
   Sparkles,
- 
 } from "lucide-react";
 
 export default function Home() {
@@ -40,11 +39,11 @@ export default function Home() {
             Digital Ebook Studio
           </h1>
           <nav className="flex gap-4">
-             <Link
+            <Link
               to="/reviews"
               className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/30 text-white hover:bg-white/40 transition font-medium shadow"
             >
-               Reviews
+              Reviews
             </Link>
             <Link
               to="/login"
@@ -126,7 +125,8 @@ export default function Home() {
           <h3 className="text-3xl font-bold mb-4">For Readers</h3>
           <p className="text-white/85 leading-relaxed mb-6">
             Readers can explore books from emerging authors worldwide. A vibrant
-            collection of stories, poems, and guides — all beautifully formatted.
+            collection of stories, poems, and guides — all beautifully
+            formatted.
           </p>
           <ul className="space-y-3 text-white/85">
             <li>📚 Thousands of free reads</li>
@@ -190,8 +190,9 @@ export default function Home() {
         </motion.h2>
         <p className="text-white/85 max-w-3xl mx-auto text-lg leading-relaxed">
           At Digital Ebook Studio, we believe storytelling should be effortless.
-          Our goal is to empower every creator — from students to professionals —
-          to turn their imagination into timeless digital art without any technical barriers.
+          Our goal is to empower every creator — from students to professionals
+          — to turn their imagination into timeless digital art without any
+          technical barriers.
         </p>
       </section>
 
@@ -228,8 +229,9 @@ export default function Home() {
           >
             <Star className="mx-auto text-yellow-300 mb-3" />
             <p className="text-white/90 text-lg italic">
-              “I never thought publishing an eBook could be this simple! The tools are
-              intuitive, and the final design looks professional. I’m proud to share my story now.”
+              “I never thought publishing an eBook could be this simple! The
+              tools are intuitive, and the final design looks professional. I’m
+              proud to share my story now.”
             </p>
             <p className="mt-4 text-white/70 text-sm">
               — Aanya Mehta, Author of “Waves of Words”

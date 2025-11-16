@@ -1,5 +1,3 @@
-
-
 import express from "express";
 import { auth } from "../middleware/auth.js";
 import {
@@ -10,12 +8,10 @@ import {
   adminGetPendingBooks,
   adminApproveBook,
   adminRejectBook,
-  deleteBook
+  deleteBook,
 } from "../controllers/bookController.js";
 
 const router = express.Router();
-
-
 
 router.post("/", auth, createBook);
 router.put("/:id", auth, updateBook);
@@ -29,8 +25,5 @@ router.get("/public", publicBooks);
 router.get("/admin/pending", auth, adminGetPendingBooks);
 router.put("/admin/:id/approve", auth, adminApproveBook);
 router.put("/admin/:id/reject", auth, adminRejectBook);
-
-
-
 
 export default router;

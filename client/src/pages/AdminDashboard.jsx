@@ -7,29 +7,18 @@ import { Check, X, Users, BookOpen } from "lucide-react";
 export default function AdminDashboard() {
   const [pendingUsers, setPendingUsers] = useState([]);
   const [pendingBooks, setPendingBooks] = useState([]);
+  const [expandedBook, setExpandedBook] = useState(null);
 
   const loadData = async () => {
     try {
-      const users = await API.get(
-        "/admin/pending",
-        {},
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      );
-      console.log("User", users);
+      const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      };
 
+      const users = await API.get("/admin/pending", config);
       setPendingUsers(users.data);
 
-      const books = await API.get(
-        "/books/admin/pending",
-        {},
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      );
-      console.log("pending Books", books.data);
-
+      const books = await API.get("/books/admin/pending", config);
       setPendingBooks(books.data);
     } catch (err) {
       toast.error("Error loading dashboard");
@@ -45,7 +34,7 @@ export default function AdminDashboard() {
 
     try {
       await API.put(
-        `books/admin/${id}/approve`,
+        `/books/admin/${id}/approve`,
         {},
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -75,7 +64,7 @@ export default function AdminDashboard() {
 
     try {
       await API.put(
-        `books/admin/${id}/reject`,
+        `/books/admin/${id}/reject`,
         {},
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -183,6 +172,10 @@ export default function AdminDashboard() {
             <div>
               <p className="font-semibold">{u.name}</p>
               <p className="text-sm text-gray-600">{u.email}</p>
+              <p className="text-sm text-gray-600">Bio: {u.bio}</p>
+              <p className="text-sm text-gray-600">
+                Experience: {u.writingExperience}
+              </p>
             </div>
             <div className="flex gap-2">
               <button
@@ -202,7 +195,7 @@ export default function AdminDashboard() {
         ))}
       </div>
 
-      <div className="bg-white/20 backdrop-blur-xl shadow-xl p-6 rounded-2xl border border-white/30">
+      <div className="bg-white/20 backdrop-blur-xl shadow-xl p-6 rounded-2xl border border-white/30 relative">
         <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
           <BookOpen /> Pending Books
         </h3>
@@ -211,20 +204,57 @@ export default function AdminDashboard() {
         )}
         {pendingBooks.map((b) => (
           <div
-            key={b._id}
-            className="flex justify-between items-center bg-white/70 border p-4 rounded-xl mb-2"
+            key={b?._id}
+            className="flex justify-between items-center bg-white/70 border px-4 py-2 rounded-xl mb-2"
           >
-            <div>
-              <p className="font-semibold">{b.title}</p>
-              {/* <p className="text-xs text-gray-600">By: {b.author?.name}</p> */}
-              <p className="text-xs text-gray-600">Content: {b.content}</p>
-              <img src={b.cover} alt={b.title} className="w-20 h-auto mt-2" />
-              <p className="text-xs text-gray-600">
+            <div className="flex items-center justify-start">
+              <div>
+                {" "}
+                <img src={b.cover} alt={b.title} className="w-fit " />
+              </div>
+              <div className="ml-7 px-2 py-2">
+                <p className="font-semibold text-[20px] ">Title: {b?.title}</p>
+
+                <p className="text-lg ">
+                  <span className="font-semibold">Content: </span>
+                  {(() => {
+                    const words = b.content.split(" ");
+                    const isLong = words.length > 100;
+                    const shortText = words.slice(0, 100).join(" ");
+                    const isExpanded = expandedBook === b._id;
+                    return (
+                      <div className="justify pr-5">
+                        {isExpanded ? b.content : shortText}
+                        {isLong && (
+                          <button
+                            onClick={() =>
+                              setExpandedBook(isExpanded ? null : b._id)
+                            }
+                            className="text-blue-700 font-semibold ml-2 underline"
+                          >
+                            {isExpanded ? "Show Less" : "... Show More"}
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })()}
+                </p>
+
+                <p className="text-sm text-gray-600 font-semibold ">
+                  Pages:{" "}
+                  <span className="rounded-full bg-red-300 px-2 py-1">
+                    {b.pages}
+                  </span>{" "}
+                </p>
+              </div>
+
+              <p className="text-xs text-red-900 font-semibold   absolute bottom-10 right-10">
+                Author: {b?.author?.name}
+                <br />
                 Created At: {new Date(b.createdAt).toLocaleDateString()}
               </p>
-              <p className="text-xs text-gray-600">Pages: {b.pages}</p>
             </div>
-            <div className="flex gap-2">
+            <div className=" flex gap-2 ">
               <button
                 onClick={() => approveBook(b._id)}
                 className="p-2 bg-green-600 text-white rounded"

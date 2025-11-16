@@ -10,9 +10,9 @@ import {
   LogOut,
   Home,
   FolderOpen,
-  Trash2
+  Trash2,
 } from "lucide-react";
-import Swal from "sweetalert2"; // ✅ SweetAlert2 for stylish confirmation dialogs
+import Swal from "sweetalert2";
 
 export default function AuthorDashboard() {
   const [books, setBooks] = useState([]);
@@ -28,8 +28,7 @@ export default function AuthorDashboard() {
   const fetchBooks = async () => {
     try {
       const { data } = await API.get("/books/my");
-      // console.log(data);
-      
+
       setBooks(data);
     } catch {
       toast.error("Error loading books");
@@ -81,8 +80,6 @@ export default function AuthorDashboard() {
     try {
       const response = await API.put(`/books/${id}`, { status: "submitted" });
 
-      console.log("Books",response.data);
-      
       toast.success("📩 Sent for Admin Review");
       fetchBooks();
     } catch {
@@ -135,7 +132,7 @@ export default function AuthorDashboard() {
         icon: "success",
         background: "#1e1e2f",
         color: "#fff",
-        timer: 1100,
+        timer: 1000,
         showConfirmButton: false,
       });
     } catch (error) {
@@ -150,7 +147,6 @@ export default function AuthorDashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 p-6">
-
       {/* ✅ Navbar */}
       <div className="flex justify-between bg-white/20 backdrop-blur-lg border border-white/30 rounded-2xl p-4 text-white mb-8 shadow-lg">
         <div className="flex gap-6 items-center">
@@ -159,8 +155,12 @@ export default function AuthorDashboard() {
         </div>
 
         <div className="flex gap-5 justify-center items-center">
-          <Link to="/explore" className="hover:text-yellow-300 font-semibold">Explore</Link>
-          <Link to="/saved" className="hover:text-yellow-300 font-semibold">Saved Drafts</Link>
+          <Link to="/explore" className="hover:text-yellow-300 font-semibold">
+            Explore-Books
+          </Link>
+          <Link to="/saved" className="hover:text-yellow-300 font-semibold">
+            Saved-Books
+          </Link>
           <button
             onClick={logout}
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500 text-white hover:animate-pulse transition font-medium shadow"
@@ -171,7 +171,6 @@ export default function AuthorDashboard() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
-
         {/* ✅ Create Book Form */}
         <motion.form
           onSubmit={handleCreate}
@@ -199,7 +198,11 @@ export default function AuthorDashboard() {
             className="w-full p-2 border rounded-lg"
           />
 
-          <input type="file" accept="image/*" onChange={(e) => uploadCover(e.target.files[0])} />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => uploadCover(e.target.files[0])}
+          />
 
           <textarea
             value={content}
@@ -233,7 +236,11 @@ export default function AuthorDashboard() {
             >
               <div className="flex gap-4">
                 {b.cover ? (
-                  <img src={b.cover} alt="cover" className="w-20 h-28 object-cover rounded-lg" />
+                  <img
+                    src={b.cover}
+                    alt="cover"
+                    className="w-20 h-28 object-cover rounded-lg"
+                  />
                 ) : (
                   <div className="w-20 h-28 bg-gray-200 flex items-center justify-center rounded-lg text-xs">
                     No Cover
@@ -244,7 +251,10 @@ export default function AuthorDashboard() {
                   <input
                     disabled={b.status === "approved"}
                     value={b.title}
-                    onChange={(e) => { b.title = e.target.value; setBooks([...books]); }}
+                    onChange={(e) => {
+                      b.title = e.target.value;
+                      setBooks([...books]);
+                    }}
                     className="w-full font-semibold border-b bg-transparent pb-1"
                   />
 
@@ -252,7 +262,10 @@ export default function AuthorDashboard() {
                     rows="3"
                     disabled={b.status === "approved"}
                     value={b.content}
-                    onChange={(e) => { b.content = e.target.value; setBooks([...books]); }}
+                    onChange={(e) => {
+                      b.content = e.target.value;
+                      setBooks([...books]);
+                    }}
                     className="w-full mt-2 p-2 border rounded"
                   />
 
@@ -265,16 +278,6 @@ export default function AuthorDashboard() {
                   )}
 
                   <div className="flex gap-2 mt-3 flex-wrap items-center">
-                    {/* Save */}
-                    {b.status !== "submitted" && b.status !== "approved" && (
-                      <button
-                        onClick={() => handleSave(b)}
-                        className="flex items-center gap-1 px-3 py-1 bg-indigo-600 text-white text-sm rounded shadow hover:bg-indigo-700 transition"
-                      >
-                        <Save size={14} /> Save
-                      </button>
-                    )}
-
                     {/* Submit */}
                     {b.status === "draft" && (
                       <button

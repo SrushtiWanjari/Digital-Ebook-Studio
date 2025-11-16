@@ -16,13 +16,14 @@ export default function Register() {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      await API.post("/auth/register", {
+      const response = await API.post("/auth/register", {
         name,
         email,
         password,
         bio,
         writingExperience,
       });
+
       localStorage.setItem(
         "pendingUser",
         JSON.stringify({ name, email, bio, writingExperience })
