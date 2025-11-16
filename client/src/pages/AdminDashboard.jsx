@@ -18,8 +18,11 @@ export default function AdminDashboard() {
       const users = await API.get("/admin/pending", config);
       setPendingUsers(users.data);
 
+
       const books = await API.get("/books/admin/pending", config);
       setPendingBooks(books.data);
+
+
     } catch (err) {
       toast.error("Error loading dashboard");
     }
@@ -90,7 +93,7 @@ export default function AdminDashboard() {
   };
 
   const approveUser = async (id) => {
-    // const toastId = toast.loading("Approving..."); // show loader immediately
+    const toastId = toast.loading("Approving..."); // show loader immediately
 
     try {
       await API.put(
@@ -100,24 +103,22 @@ export default function AdminDashboard() {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
-      toast.success("User Approved")
 
-      // toast.update(toastId, {
-      //   render: "User Approved",
-      //   type: "success",
-      //   isLoading: false,
-      //   autoClose: 1000,
-      // });
+      toast.update(toastId, {
+        render: "User Approved",
+        type: "success",
+        isLoading: false,
+        autoClose: 1000,
+      });
 
       loadData();
-    } catch (error){
-      toast.error("User Approving Error", error)
-      // toast.update(toastId, {
-      //   render: "Error approving user",
-      //   type: "error",
-      //   isLoading: false,
-      //   autoClose: 1000,
-      // });
+    } catch {
+      toast.update(toastId, {
+        render: "Error approving user",
+        type: "error",
+        isLoading: false,
+        autoClose: 1000,
+      });
     }
   };
 
@@ -216,6 +217,7 @@ export default function AdminDashboard() {
               </div>
               <div className="ml-7 px-2 py-2">
                 <p className="font-semibold text-[20px] ">Title: {b?.title}</p>
+          
 
                 <p className="text-lg ">
                   <span className="font-semibold">Content: </span>
@@ -251,9 +253,9 @@ export default function AdminDashboard() {
               </div>
 
               <p className="text-xs text-red-900 font-semibold   absolute bottom-10 right-10">
-                Author: {b?.author?.name}
-                <br />
+                Author: {b?.author?.name}<br />
                 Created At: {new Date(b.createdAt).toLocaleDateString()}
+               
               </p>
             </div>
             <div className=" flex gap-2 ">
