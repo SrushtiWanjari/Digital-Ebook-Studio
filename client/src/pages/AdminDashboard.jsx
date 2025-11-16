@@ -96,7 +96,7 @@ export default function AdminDashboard() {
     const toastId = toast.loading("Approving..."); // show loader immediately
 
     try {
-      await API.put(
+      const res = await API.put(
         `/admin/${id}/approve`,
         {},
         {
@@ -125,7 +125,7 @@ export default function AdminDashboard() {
   const rejectUser = async (id) => {
     const toastId = toast.loading("Rejecting...");
     try {
-      await API.put(
+      const res = await API.put(
         `/admin/${id}/reject`,
         {},
         {
@@ -134,7 +134,7 @@ export default function AdminDashboard() {
       );
 
       toast.update(toastId, {
-        render: "User Approved",
+        render: "User Rejected",
         type: "success",
         isLoading: false,
         autoClose: 2000,
@@ -143,7 +143,7 @@ export default function AdminDashboard() {
       loadData();
     } catch {
       toast.update(toastId, {
-        render: "Error approving user",
+        render: "Error rejecting user",
         type: "error",
         isLoading: false,
         autoClose: 2000,
