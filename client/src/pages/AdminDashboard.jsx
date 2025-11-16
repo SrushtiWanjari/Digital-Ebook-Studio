@@ -116,7 +116,7 @@ export default function AdminDashboard() {
         render: "User Approved",
         type: "success",
         isLoading: false,
-        autoClose: 2000,
+        autoClose: 1000,
       });
 
       loadData();
@@ -125,7 +125,7 @@ export default function AdminDashboard() {
         render: "Error approving user",
         type: "error",
         isLoading: false,
-        autoClose: 2000,
+        autoClose: 1000,
       });
     }
   };
