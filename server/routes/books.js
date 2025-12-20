@@ -1,5 +1,5 @@
 import express from "express";
-import { auth } from "../middleware/auth.js";
+import { auth, adminOnly } from "../middleware/auth.js";
 import {
   createBook,
   updateBook,
@@ -13,17 +13,18 @@ import {
 
 const router = express.Router();
 
+
 router.post("/", auth, createBook);
 router.put("/:id", auth, updateBook);
 router.get("/my", auth, myBooks);
-router.delete("/delete/:id", auth, myBooks);
+router.delete("/delete/:id", auth, deleteBook); 
 
-// Public & Admin
+
 router.get("/public", publicBooks);
 
-// Admin Routes to approve books
-router.get("/admin/pending", auth, adminGetPendingBooks);
-router.put("/admin/:id/approve", auth, adminApproveBook);
-router.put("/admin/:id/reject", auth, adminRejectBook);
+
+router.get("/admin/pending", auth, adminOnly, adminGetPendingBooks);
+router.put("/admin/:id/approve", auth, adminOnly, adminApproveBook);
+router.put("/admin/:id/reject", auth, adminOnly, adminRejectBook);
 
 export default router;
