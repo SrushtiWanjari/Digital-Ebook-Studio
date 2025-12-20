@@ -60,21 +60,21 @@ export default function AuthorDashboard() {
     }
   };
 
-  const handleSave = async (book) => {
-    try {
-      await API.put(`/books/${book._id}`, {
-        title: book.title,
-        // pages: book.pages,
-        content: book.content,
-        cover: book.cover,
-        status: "draft",
-      });
-      toast.success("✅ Draft Saved");
-      fetchBooks();
-    } catch {
-      toast.error("Save failed");
-    }
-  };
+  // const handleSave = async (book) => {
+  //   try {
+  //     await API.put(`/books/${book._id}`, {
+  //       title: book.title,
+  //       // pages: book.pages,
+  //       content: book.content,
+  //       cover: book.cover,
+  //       status: "draft",
+  //     });
+  //     toast.success("✅ Draft Saved");
+  //     fetchBooks();
+  //   } catch {
+  //     toast.error("Save failed");
+  //   }
+  // };
 
   const handleSubmitBook = async (id) => {
     try {
