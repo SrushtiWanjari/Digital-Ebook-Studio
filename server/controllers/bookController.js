@@ -4,7 +4,7 @@ import { sendEmail } from "../utils/sendEmail.js";
 // Create book (Draft)
 export const createBook = async (req, res) => {
   try {
-    const { title, pages, content, cover } = req.body;
+    const { title,  content, cover } = req.body;
 
     const incomplete = await Book.countDocuments({
       author: req.user._id,
@@ -16,7 +16,7 @@ export const createBook = async (req, res) => {
 
     const book = await Book.create({
       title,
-      pages,
+      // pages,
       content,
       cover,
       author: req.user._id,
@@ -39,10 +39,10 @@ export const updateBook = async (req, res) => {
     if (b.author.toString() !== req.user._id.toString())
       return res.status(403).json({ message: "Forbidden" });
 
-    const { title, pages, content, cover, status } = req.body;
+    const { title, content, cover, status } = req.body;
 
     if (title) b.title = title;
-    if (pages) b.pages = pages;
+    // if (pages) b.pages = pages;
     if (content) b.content = content;
     if (cover) b.cover = cover;
     if (status) b.status = status; // "draft" | "submitted"

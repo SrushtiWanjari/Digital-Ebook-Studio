@@ -99,7 +99,6 @@ export default function Home() {
             <p>📚 Save drafts or publish directly</p>
             <p>✅ Admin review system for quality</p>
             <p>📄 Multi-page content structure</p>
-            <p>📥 Download as PDF anytime</p>
             <p>🎨 Theme preview with custom colors</p>
           </div>
         </motion.div>

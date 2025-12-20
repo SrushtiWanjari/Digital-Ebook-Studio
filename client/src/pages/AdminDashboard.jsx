@@ -96,7 +96,7 @@ export default function AdminDashboard() {
     const toastId = toast.loading("Approving..."); // show loader immediately
 
     try {
-      const res = await API.put(
+      await API.put(
         `/admin/${id}/approve`,
         {},
         {
@@ -125,7 +125,7 @@ export default function AdminDashboard() {
   const rejectUser = async (id) => {
     const toastId = toast.loading("Rejecting...");
     try {
-      const res = await API.put(
+      await API.put(
         `/admin/${id}/reject`,
         {},
         {
@@ -143,7 +143,7 @@ export default function AdminDashboard() {
       loadData();
     } catch {
       toast.update(toastId, {
-        render: "Error rejecting user",
+        render: "Error Rejected user",
         type: "error",
         isLoading: false,
         autoClose: 2000,
@@ -244,12 +244,12 @@ export default function AdminDashboard() {
                   })()}
                 </p>
 
-                <p className="text-sm text-gray-600 font-semibold ">
+                {/* <p className="text-sm text-gray-600 font-semibold ">
                   Pages:{" "}
                   <span className="rounded-full bg-red-300 px-2 py-1">
-                    {b.pages}
+                    {b.}
                   </span>{" "}
-                </p>
+                </p> */}
               </div>
 
               <p className="text-xs text-red-900 font-semibold   absolute bottom-10 right-10">

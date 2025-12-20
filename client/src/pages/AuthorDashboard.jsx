@@ -17,7 +17,7 @@ import Swal from "sweetalert2";
 export default function AuthorDashboard() {
   const [books, setBooks] = useState([]);
   const [title, setTitle] = useState("");
-  const [pages, setPages] = useState(1);
+  // const [pages, setPages] = useState(1);
   const [content, setContent] = useState("");
   const [cover, setCover] = useState("");
 
@@ -48,10 +48,10 @@ export default function AuthorDashboard() {
       return toast.warning("❗ You can only have 3 incomplete books!");
 
     try {
-      await API.post("/books", { title, pages, content, cover });
+      await API.post("/books", { title,  content, cover });
       toast.success("📚 Draft Created!");
       setTitle("");
-      setPages(1);
+      // setPages(1);
       setContent("");
       setCover("");
       fetchBooks();
@@ -64,7 +64,7 @@ export default function AuthorDashboard() {
     try {
       await API.put(`/books/${book._id}`, {
         title: book.title,
-        pages: book.pages,
+        // pages: book.pages,
         content: book.content,
         cover: book.cover,
         status: "draft",
@@ -190,13 +190,13 @@ export default function AuthorDashboard() {
             required
           />
 
-          <input
+          {/* <input
             type="number"
             value={pages}
             min="1"
             onChange={(e) => setPages(Number(e.target.value))}
             className="w-full p-2 border rounded-lg"
-          />
+          /> */}
 
           <input
             type="file"
