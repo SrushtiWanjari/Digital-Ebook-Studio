@@ -103,7 +103,7 @@ export default function AdminDashboard() {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
-
+     
       toast.update(toastId, {
         render: "User Approved",
         type: "success",
@@ -112,7 +112,8 @@ export default function AdminDashboard() {
       });
 
       loadData();
-    } catch {
+    } catch () {
+     
       toast.update(toastId, {
         render: "Error approving user",
         type: "error",
@@ -121,7 +122,6 @@ export default function AdminDashboard() {
       });
     }
   };
-
   const rejectUser = async (id) => {
     const toastId = toast.loading("Rejecting...");
     try {
